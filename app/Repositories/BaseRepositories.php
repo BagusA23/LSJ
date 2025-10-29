@@ -19,4 +19,26 @@ class BaseRepositories implements BaseRepositoriesInterface
     {
         return $this->model->with($columns)->get();
     }
+
+    public function find(mixed $id, array $columns = []):? Model
+    {
+        return $this->model->with($columns)->find($id);
+    }
+
+    public function create(array $data): Model
+    {
+        return $this->model->create($data);
+    }
+
+    public function update(mixed $id, array $data): ?Model
+    {
+        $model = $this->find($id);
+
+        if ($model) {
+            $model->update($data);
+            return $model;
+        }
+
+        return null;
+    }
 }
